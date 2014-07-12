@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_package_list version="1.0">
+<Package>
+    <Name>SupportQuota</Name>
+    <Version>0.0.1</Version>
+    <Vendor>Deny Dias</Vendor>
+    <URL>http://mexapi.macpress.com/</URL>
+    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
+    <ChangeLog Date="2014-07-12 19:09:21" Version="0.0.1">Initial release.</ChangeLog>
+    <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in TicketZoom.</Description>
+    <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas em TicketZoom.</Description>
+    <Framework>3.3.x</Framework>
+    <Filelist>
+    </Filelist>
+  <File>/SupportQuota-0.0.1.opm</File>
+</Package>
+</otrs_package_list>
