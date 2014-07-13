@@ -91,26 +91,35 @@ sub Run {
     my $UsedQuota      = sprintf '%.1f', $Uquota;
     my $AvailableQuota = sprintf '%.1f', $Cquota - $Uquota;
 
-    my $HTML = '
+    my $Template = q~
             <div class="WidgetSimple">
                 <div class="Header">
-                    <h2>Cota de Suporte do Cliente</h2>
+                    <h2>$Text{"Quota Customer Support"}</h2>
                 </div>
                 <div class="Content">
                     <fieldset class="TableLike FixedLabelSmall Narrow">
-                        <label>Dispon&iacute;vel:</label>
-                        <p class="Value">' . $AvailableQuota . '</p>
+                        <label>$Text{"Available"}:</label>
+                        <p class="Value">$QData{"Available"}</p>
                         <div class="Clear"></div>
-                        <label>Utilizado:</label>
-                        <p class="Value">' . $UsedQuota . '</p>
+                        <label>$Text{"Utilized"}:</label>
+                        <p class="Value">$QData{"Utilized"}</p>
                         <div class="Clear"></div>
-                        <label>Contratado:</label>
-                        <p class="Value">' . $ContractQuota . '</p>
+                        <label>$Text{"Contract"}:</label>
+                        <p class="Value">$QData{"Contract"}</p>
                         <div class="Clear"></div>
                     </fieldset>
                 </div>
             </div>
-    ';
+    ~;
+
+    my $HTML = $Self->{LayoutObject}->Output(
+        Template => $Template,
+        Data     => {
+            Available => $AvailableQuota,
+            Utilized  => $UsedQuota,
+            Contract  => $ContractQuota,
+        },
+    );
 
     # add information
     ${ $Param{Data} } =~ s{
