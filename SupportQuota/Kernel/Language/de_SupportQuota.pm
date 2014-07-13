@@ -1,5 +1,5 @@
 # --
-# Kernel/Language/pt_BR_SupportQuota.pm
+# Kernel/Language/de_SupportQuota.pm
 # Copyright (C) 2014 denydias
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -8,7 +8,7 @@
 # --
 
 
-package Kernel::Language::pt_BR_SupportQuota;
+package Kernel::Language::de_SupportQuota;
 
 use strict;
 use warnings;
