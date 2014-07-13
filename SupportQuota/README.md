@@ -9,11 +9,11 @@ easily decide what to do based on your process on how to charge (or not) for bey
 
 The screenshot bellow shows how the Support Quota works in the agent GUI:
 
-**screenshot placeholder**
+![Support Quota Add-on in action](https://raw.githubusercontent.com/denydias/otrs/master/SupportQuota/SupporQuota.png)
 
 ## Instalation
 
-There is an OTRS Package ready to install. Download it, open your OTRS and go to 'Admin > Package Management'. Then choose the downloaded package under 'Install Package' button.
+Right in this repo, there is an [OTRS Package](https://github.com/denydias/otrs/tree/master/packages) (SupportQuota-0.0.1.opm) ready to install. Download it, open your OTRS and go to 'Admin > Package Management'. Then choose the downloaded package under 'Install Package' button.
 
 The package installation takes care of the only database change required. For the matter of the record, it is:
 
@@ -61,7 +61,7 @@ After installation is done, you have to **manually** change your `Kernel/Config.
 
 Note the new `CustomerCompanyQuota` field in the map.
 
-And that's it. Enjoy your extra $.
+And that's it. Enjoy your extra $$$.
 
 ## To Do
 
