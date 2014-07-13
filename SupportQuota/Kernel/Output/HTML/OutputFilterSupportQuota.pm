@@ -37,16 +37,26 @@ sub Run {
 
     # get customer_id
     my $Cid = '';
-    my $SQL = "SELECT customer_id FROM ticket WHERE id = '" . $Self->{TicketID} . "'";
-    $Self->{DBObject}->Prepare(SQL => $SQL, Limit => 1);
+    my $SQL = "SELECT customer_id FROM ticket WHERE id = ?";
+    $Self->{DBObject}->Prepare(
+        SQL   => $SQL,
+        Bind  => [ \$Self->{TicketID} ],
+        Limit => 1,
+    );
+
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
       $Cid = $Row[0];
     }
 
     # get contract quota
     my $Cquota = '';
-    $SQL = "SELECT quota FROM customer_company WHERE customer_id = '" . $Cid . "'";
-    $Self->{DBObject}->Prepare(SQL => $SQL, Limit => 1);
+    $SQL = "SELECT quota FROM customer_company WHERE customer_id = ?";
+    $Self->{DBObject}->Prepare(
+        SQL   => $SQL,
+        Bind  => [ \$Cid ],
+        Limit => 1,
+    );
+
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
       $Cquota = $Row[0];
     }
@@ -60,19 +70,25 @@ sub Run {
             left join time_accounting ta on ta.ticket_id=t.id
         WHERE
             ta.time_unit IS NOT NULL
-            AND t.customer_id='" . $Cid . "'
+            AND t.customer_id = ?
             AND year(t.create_time) = year(now())
             AND month(t.create_time) = month(now())
         GROUP BY
           t.customer_id";
-    $Self->{DBObject}->Prepare(SQL => $SQL, Limit => 1);
+
+    $Self->{DBObject}->Prepare(
+        SQL   => $SQL,
+        Bind  => [ \$Cid ],
+        Limit => 1,
+    );
+
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
       $Uquota = $Row[0];
     }
 
     # format and calculate remaining data
-    my $ContractQuota = sprintf '%.1f', $Cquota;
-    my $UsedQuota =  sprintf '%.1f', $Uquota;
+    my $ContractQuota  = sprintf '%.1f', $Cquota;
+    my $UsedQuota      = sprintf '%.1f', $Uquota;
     my $AvailableQuota = sprintf '%.1f', $Cquota - $Uquota;
 
     my $HTML = '
@@ -108,3 +124,4 @@ sub Run {
 }
 
 1;
+
