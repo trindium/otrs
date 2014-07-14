@@ -69,13 +69,26 @@ I'm not a Perl developer. I did the best I could to write this add-on with the c
 
 As an start point, I'll give you the following items as a 'To Do List':
 
-* ~~Properly implement the OTRS template mechanism.~~ (done by [reneeb](https://github.com/reneeb) in 6c35790b230104b2124fb2b8a61f63feba4b56bf)
-* ~~Add localization support (Brazilian Portuguese is hardcoded). If you need the strings that need translation, open an issue and I'll be more than pleased to provide them.~~ (done by [reneeb](https://github.com/reneeb) in 6c35790b230104b2124fb2b8a61f63feba4b56bf)
-* Add the widget to AgentCustomerInformationCenter.
-* Add visual cues to over quota customers.
-* Provide notification methods to automatically reply to customers working beyond the contracted quota upon new tickets.
+- [x] Properly implement the OTRS template mechanism. (done by [reneeb](https://github.com/reneeb) in [6c35790b23](https://github.com/denydias/otrs/commit/6c35790b230104b2124fb2b8a61f63feba4b56bf))
+- [x] Add localization support (Brazilian Portuguese is hardcoded). If you need the strings that need translation, open an issue and I'll be more than pleased to provide them. (done by [reneeb](https://github.com/reneeb) in [6c35790b23](https://github.com/denydias/otrs/commit/6c35790b230104b2124fb2b8a61f63feba4b56bf))
+- [ ] Add the widget to AgentCustomerInformationCenter.
+- [ ] Add visual cues to over quota customers.
+- [ ] Provide notification methods to automatically reply to customers working beyond the contracted quota upon new tickets.
 
 This is just to name a few. I'm open to more.
+
+### By Users
+
+These are suggested by users:
+
+#### reneeb
+
+At [http://forums.otterhub.org/viewtopic.php?f=64&t=25727&p=102624#p102527].
+
+- [ ] All the information can be gathered in one single SQL statement with some outer joins.
+- [ ] Check if a TicketID is set (someone might use the output filter for an action that doesn't have a ticket ID and that would lead to an error) and return if no ID is set.
+- [ ] Usually, Outputfilter in the SysConfig are numbered: Frontend::Output::FilterElementPre###099-OutputFilterSupportQuota. (Author note: could'n find any documented standard for this one).
+- [ ] year() and month() are not portable (e.g. Postgresql do not know those functions).
 
 ## How To Use It
 
