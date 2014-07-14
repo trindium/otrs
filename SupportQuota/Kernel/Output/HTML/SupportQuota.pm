@@ -1,5 +1,5 @@
 # --
-# Kernel/Output/HTML/OutputFilterSupportQuota.pm
+# Kernel/Output/HTML/SupportQuota.pm
 # Copyright (C) 2001-2014 Deny Dias, http://mexapi.macpress.com.br/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -7,7 +7,7 @@
 # did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 # --
 
-package Kernel::Output::HTML::OutputFilterSupportQuota;
+package Kernel::Output::HTML::SupportQuota;
 
 use strict;
 use warnings;
@@ -17,7 +17,7 @@ sub new {
 
     # allocate new hash for object
     my $Self = {%Param};
-    bless( $Self, $Type );
+    bless( $Self, $Type );x
 
     # get needed objects
     for my $Needed (
@@ -38,7 +38,7 @@ sub Run {
     # get customer_id
     my $Cid = '';
     my $SQL = "SELECT customer_id FROM ticket WHERE id = ?";
-    $Self->{DBObject}->Prepare(
+    return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Self->{TicketID} ],
         Limit => 1,
@@ -50,7 +50,7 @@ sub Run {
     # get contract quota
     my $Cquota = '';
     $SQL = "SELECT quota FROM customer_company WHERE customer_id = ?";
-    $Self->{DBObject}->Prepare(
+    return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Cid ],
         Limit => 1,
@@ -73,7 +73,7 @@ sub Run {
             AND month(t.create_time) = month(now())
         GROUP BY
             t.customer_id";
-    $Self->{DBObject}->Prepare(
+    return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Cid ],
         Limit => 1,
@@ -129,4 +129,3 @@ sub Run {
 }
 
 1;
-
