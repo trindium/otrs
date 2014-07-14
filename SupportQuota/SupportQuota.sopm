@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otrs_package version="1.0">
     <Name>SupportQuota</Name>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Framework>3.3.x</Framework>
     <Vendor>Deny Dias</Vendor>
     <URL>http://mexapi.macpress.com/</URL>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <ChangeLog Version="0.0.1" Date="2014-07-12 19:09:21">Initial release.</ChangeLog>
+    <ChangeLog Version="0.0.2" Date="2014-07-14 00:49:21">Use Perl bind paramenters on SQL queries. Implement translations. Portuguese Brazil and Deutsh translations.</ChangeLog>
     <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in TicketZoom.</Description>
     <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas em TicketZoom.</Description>
     <IntroInstall Type="post" Lang="en" Title="Thank you!">Don't forget to edit your Kernel/Config.pm to add the 'Quota' field to 'AdminCustomerCompany'. See Kernel/Config.pm.quota.patch for an example. Thank you for install the Support Quota module.</IntroInstall>
@@ -16,6 +17,8 @@
     <Filelist>
         <File Permission="644" Location="Kernel/Config.pm.quota.patch"></File>
         <File Permission="644" Location="Kernel/Config/Files/SupportQuota.xml"></File>
+        <File Permission="644" Location="Kernel/Language/de_SupportQuota.pm"></File>
+        <File Permission="644" Location="Kernel/Language/pt_BR_SupportQuota.pm"></File>
         <File Permission="644" Location="Kernel/Output/HTML/OutputFilterSupportQuota.pm"></File>
         <File Permission="644" Location="scripts/database/update/quota-alter.sql"></File>
     </Filelist>
