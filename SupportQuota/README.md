@@ -94,7 +94,7 @@ There are many use cases (aka support process) where this add-on could fit. I ca
 
     This ensures that any new ticket get the proper 'CustomerCompanyID' properly set when a new support email arrive.
 
-    **Caveat:** If an agent open a ticket, the 'CustomerCompanyID' should be set manually. The same applies for phone tickets if.
+    **Caveat:** If an agent open a ticket, the 'CustomerCompanyID' should be set manually. The same applies for phone tickets.
 
 4. (OPTIONAL, but recommended) Go to Admin > SysConfig > Ticket > Frontend::Agent and set:
 
