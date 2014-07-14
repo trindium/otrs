@@ -43,7 +43,6 @@ sub Run {
         Bind  => [ \$Self->{TicketID} ],
         Limit => 1,
     );
-
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
       $Cid = $Row[0];
     }
@@ -56,7 +55,6 @@ sub Run {
         Bind  => [ \$Cid ],
         Limit => 1,
     );
-
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
       $Cquota = $Row[0];
     }
@@ -74,14 +72,12 @@ sub Run {
             AND year(t.create_time) = year(now())
             AND month(t.create_time) = month(now())
         GROUP BY
-          t.customer_id";
-
+            t.customer_id";
     $Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Cid ],
         Limit => 1,
     );
-
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
       $Uquota = $Row[0];
     }
@@ -94,18 +90,18 @@ sub Run {
     my $Template = q~
             <div class="WidgetSimple">
                 <div class="Header">
-                    <h2>$Text{"Quota Customer Support"}</h2>
+                    <h2>$Text{"Customer Support Quota"}</h2>
                 </div>
                 <div class="Content">
                     <fieldset class="TableLike FixedLabelSmall Narrow">
                         <label>$Text{"Available"}:</label>
                         <p class="Value">$QData{"Available"}</p>
                         <div class="Clear"></div>
-                        <label>$Text{"Utilized"}:</label>
-                        <p class="Value">$QData{"Utilized"}</p>
+                        <label>$Text{"Used"}:</label>
+                        <p class="Value">$QData{"Used"}</p>
                         <div class="Clear"></div>
-                        <label>$Text{"Contract"}:</label>
-                        <p class="Value">$QData{"Contract"}</p>
+                        <label>$Text{"Contracted"}:</label>
+                        <p class="Value">$QData{"Contracted"}</p>
                         <div class="Clear"></div>
                     </fieldset>
                 </div>
@@ -115,9 +111,9 @@ sub Run {
     my $HTML = $Self->{LayoutObject}->Output(
         Template => $Template,
         Data     => {
-            Available => $AvailableQuota,
-            Utilized  => $UsedQuota,
-            Contract  => $ContractQuota,
+            Available  => $AvailableQuota,
+            Used       => $UsedQuota,
+            Contracted => $ContractQuota,
         },
     );
 

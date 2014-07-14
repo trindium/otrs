@@ -20,10 +20,10 @@ sub Data {
 
     my $Lang = $Self->{Translation};
 
-    $Lang->{Available}                = 'Verfügbar';
-    $Lang->{'Quota Customer Support'} = 'Quota Kundensupport';
-    $Lang->{'Utilized'}               = 'Verbraucht';
-    $Lang->{'Contract'}               = 'Vertrag';
+    $Lang->{'Available'}              = 'Verfügbar';
+    $Lang->{'Customer Support Quota'} = 'Quota Kundensupport';
+    $Lang->{'Used'}                   = 'Verbraucht';
+    $Lang->{'Contracted'}             = 'Vertrag';
 }
 
 1;
