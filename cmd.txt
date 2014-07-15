@@ -1,0 +1,17 @@
+# A list of handful commands for OTRS module development, debugging and package building
+
+# Module Development
+/opt/otrs/dev/module-tools/link.pl /opt/otrs/dev/SupportQuota /opt/otrs
+/opt/otrs/dev/module-tools/remove_links.pl /opt/otrs
+# browser: run SysConfig
+
+# Module Debug
+/opt/otrs/bin/otrs.RebuildConfig.pl;/opt/otrs/bin/otrs.DeleteCache.pl
+sudo perl /opt/otrs/bin/otrs.SetPermissions.pl --otrs-user=otrs --web-user=www-data --otrs-group=otrs --web-group=www-data /opt/otrs
+sudo service apache2 restart
+sudo tail -f /var/log/apache2/error.log
+
+# Package/Repository Building
+/opt/otrs/bin/otrs.PackageManager.pl -a build -p /opt/otrs/dev/SupportQuota/SupportQuota.sopm
+mv /tmp/SupportQuota-0.0.?.opm /opt/otrs/dev/packages/
+/opt/otrs/bin/otrs.PackageManager.pl -a index -d /opt/otrs/dev/packages > /opt/otrs/dev/packages/otrs.xml
