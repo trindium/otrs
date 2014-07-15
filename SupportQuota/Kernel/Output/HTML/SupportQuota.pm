@@ -17,7 +17,7 @@ sub new {
 
     # allocate new hash for object
     my $Self = {%Param};
-    bless( $Self, $Type );x
+    bless( $Self, $Type );
 
     # get needed objects
     for my $Needed (
@@ -35,57 +35,36 @@ sub new {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    # get customer_id
-    my $Cid = '';
-    my $SQL = "SELECT customer_id FROM ticket WHERE id = ?";
+    # check data
+    return if !$Self->{TicketID};
+
+    # get data: customer contracted and used quotas for the current month
+    my %Data = ();
+    my $SQL = "
+        SELECT cc.quota, SUM(ta.time_unit)
+        FROM ticket t
+        INNER JOIN customer_company cc ON cc.customer_id=t.customer_id
+        INNER JOIN time_accounting ta ON ta.ticket_id=t.id
+        WHERE
+            t.customer_id IN (SELECT customer_id FROM ticket WHERE id = ?)
+            AND ta.time_unit IS NOT NULL
+            AND EXTRACT(YEAR FROM t.create_time) = EXTRACT(YEAR FROM NOW())
+            AND EXTRACT(MONTH FROM t.create_time) = EXTRACT(MONTH FROM NOW())
+        GROUP BY t.customer_id";
     return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Self->{TicketID} ],
         Limit => 1,
     );
     while (my @Row = $Self->{DBObject}->FetchrowArray()) {
-      $Cid = $Row[0];
-    }
-
-    # get contract quota
-    my $Cquota = '';
-    $SQL = "SELECT quota FROM customer_company WHERE customer_id = ?";
-    return if !$Self->{DBObject}->Prepare(
-        SQL   => $SQL,
-        Bind  => [ \$Cid ],
-        Limit => 1,
-    );
-    while (my @Row = $Self->{DBObject}->FetchrowArray()) {
-      $Cquota = $Row[0];
-    }
-
-    # get used quota for the accounting period (current month)
-    my $Uquota = '';
-    $SQL = "
-        SELECT
-            sum(ta.time_unit)
-        FROM ticket t
-            left join time_accounting ta on ta.ticket_id=t.id
-        WHERE
-            ta.time_unit IS NOT NULL
-            AND t.customer_id = ?
-            AND year(t.create_time) = year(now())
-            AND month(t.create_time) = month(now())
-        GROUP BY
-            t.customer_id";
-    return if !$Self->{DBObject}->Prepare(
-        SQL   => $SQL,
-        Bind  => [ \$Cid ],
-        Limit => 1,
-    );
-    while (my @Row = $Self->{DBObject}->FetchrowArray()) {
-      $Uquota = $Row[0];
+        $Data{ContractQuota} = $Row[0];
+        $Data{UsedQuota}     = $Row[1];
     }
 
     # format and calculate remaining data
-    my $ContractQuota  = sprintf '%.1f', $Cquota;
-    my $UsedQuota      = sprintf '%.1f', $Uquota;
-    my $AvailableQuota = sprintf '%.1f', $Cquota - $Uquota;
+    my $ContractQuota  = sprintf '%.1f', $Data{ContractQuota};
+    my $UsedQuota      = sprintf '%.1f', $Data{UsedQuota};
+    my $AvailableQuota = sprintf '%.1f', $ContractQuota - $UsedQuota;
 
     my $Template = q~
             <div class="WidgetSimple">
@@ -118,12 +97,7 @@ sub Run {
     );
 
     # add information
-    ${ $Param{Data} } =~ s{
-        (<\!--\sdtl:block:CustomerTable\s-->)
-    }
-    {
-        $HTML $1
-    }sxim;
+    ${ $Param{Data} } =~ s{ (<\!--\sdtl:block:CustomerTable\s-->) }{ $HTML $1 }ixms;
 
     return $Param{Data};
 }
