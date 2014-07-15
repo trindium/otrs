@@ -41,16 +41,20 @@ sub Run {
     # get data: customer contracted and used quotas for the current month
     my %Data = ();
     my $SQL = "
-        SELECT cc.quota, SUM(ta.time_unit)
-        FROM ticket t
-        INNER JOIN customer_company cc ON cc.customer_id=t.customer_id
-        INNER JOIN time_accounting ta ON ta.ticket_id=t.id
-        WHERE
-            t.customer_id IN (SELECT customer_id FROM ticket WHERE id = ?)
-            AND ta.time_unit IS NOT NULL
-            AND EXTRACT(YEAR FROM t.create_time) = EXTRACT(YEAR FROM NOW())
-            AND EXTRACT(MONTH FROM t.create_time) = EXTRACT(MONTH FROM NOW())
-        GROUP BY t.customer_id";
+        SELECT cc.quota          AS Cquota,
+               Sum(ta.time_unit) AS Uquota
+        FROM   ticket t
+               INNER JOIN customer_company cc
+                      ON cc.customer_id = t.customer_id
+               INNER JOIN time_accounting ta
+                      ON ta.ticket_id = t.id
+        WHERE  t.customer_id IN (SELECT customer_id
+                                FROM   ticket
+                                WHERE  id = ?)
+               AND ta.time_unit IS NOT NULL
+               AND Extract(year FROM t.create_time) = Extract(year FROM Now())
+               AND Extract(month FROM t.create_time) = Extract(month FROM Now())
+        GROUP  BY t.customer_id";
     return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Self->{TicketID} ],
