@@ -140,10 +140,10 @@ These are suggested by users:
 
 At http://forums.otterhub.org/viewtopic.php?f=64&t=25727&p=102624#p102527.
 
-- [ ] All the information can be gathered in one single SQL statement with some outer joins.
-- [ ] Check if a TicketID is set (someone might use the output filter for an action that doesn't have a ticket ID and that would lead to an error) and return if no ID is set.
-- [ ] Usually, Outputfilter in the SysConfig are numbered: Frontend::Output::FilterElementPre###099-OutputFilterSupportQuota. (Author note: could'n find any documented standard for this one).
-- [ ] year() and month() are not portable (e.g. Postgresql do not know those functions).
+- [X] All the information can be gathered in one single SQL statement with some outer joins. (**Note:** I managed to get all data with one ANSI SQL statement (well, not exactly as there is a subquery). The new SQL should now be portable between DBMS supported by OTRS, but it was tested only in MySQL and MariaDB. I do not have access to PostgreSQL, Oracle or MSSQL to proceed with further tests. I appreciate if someone out there could validate the new SQL on these.)
+- [X] Check if a TicketID is set (someone might use the output filter for an action that doesn't have a TicketID and that would lead to an error) and return if no ID is set.
+- [ ] Usually, Outputfilter in the SysConfig are numbered: `Frontend::Output::FilterElementPre###099-OutputFilterSupportQuota`. (**Note:** could'n find any documented standard for this one.)
+- [X] `year()` and `month()` are not portable. (**Note:** Please see the SQL comment above.)
 
 ## References
 
@@ -161,7 +161,7 @@ To write this OTRS add-on, my first one, I counted on many references. Bellow I 
 
     [Add "next ticket" button in AgentTicketZoom](http://forums.otterhub.org/viewtopic.php?f=64&t=16586)
 
-3. [Zuny Repo](https://github.com/znuny)
+3. [Znuny Repo](https://github.com/znuny)
 
 4. [OTRS Package that allows SMS sending](https://github.com/richieri/SmsEvent)
 

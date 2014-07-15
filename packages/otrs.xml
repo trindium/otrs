@@ -2,17 +2,19 @@
 <otrs_package_list version="1.0">
 <Package>
     <Name>SupportQuota</Name>
-    <Version>0.0.2</Version>
+    <Version>0.0.4</Version>
     <Vendor>Deny Dias</Vendor>
     <URL>http://mexapi.macpress.com/</URL>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <ChangeLog Date="2014-07-12 19:09:21" Version="0.0.1">Initial release.</ChangeLog>
     <ChangeLog Date="2014-07-14 00:49:21" Version="0.0.2">Use Perl bind paramenters on SQL queries. Implement translations. Brazilian Portuguese and German translations.</ChangeLog>
-    <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in TicketZoom.</Description>
-    <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas em TicketZoom.</Description>
+    <ChangeLog Date="2014-07-14 20:12:21" Version="0.0.3">Rename module file. Remove some unnecessary files.</ChangeLog>
+    <ChangeLog Date="2014-07-15 02:34:00" Version="0.0.4">Database connection optimizations and runtime exception handling.</ChangeLog>
+    <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in the agent interface.</Description>
+    <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas na interface do agente.</Description>
     <Framework>3.3.x</Framework>
     <Filelist>
     </Filelist>
-  <File>/SupportQuota-0.0.2.opm</File>
+  <File>/SupportQuota-0.0.4.opm</File>
 </Package>
 </otrs_package_list>
