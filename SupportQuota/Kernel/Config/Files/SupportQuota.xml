@@ -15,4 +15,16 @@
             </Hash>
         </Setting>
     </ConfigItem>
+    <ConfigItem Name="SupportQuota::Preferences::Recurrence" Required="0" Valid="1">
+        <Description Translatable="1">Recurrence of quota</Description>
+        <Group>SupportQuota</Group>
+        <SubGroup>SupportQuota::Preferences</SubGroup>
+        <Setting>
+            <Option SelectedID="month">
+                <Item Key="month">Monthly</Item>
+                <Item Key="yead">Yearly</Item>
+                <Item Key="never">Disabled</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
 </otrs_config>

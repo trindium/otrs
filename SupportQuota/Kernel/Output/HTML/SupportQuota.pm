@@ -40,18 +40,30 @@ sub Run {
 
     # get data: customer contracted and used quotas for the current month
     my %Data = ();
-    my $SQL = "
+    my $recurence = $Self->{ConfigObject}->Get('SupportQuota::Preferences::Recurrence');
+    my $SQL_TIMESELECTION = "";
+    if ( $recurence eq 'month' ) {
+        $SQL_TIMESELECTION = "
+            AND Extract(year FROM ta.create_time) = Extract(year FROM Now())
+            AND Extract(month FROM ta.create_time) = Extract(month FROM Now())";
+    } elsif ( $recurence eq 'year' ) {
+        $SQL_TIMESELECTION = "
+            AND Extract(year FROM ta.create_time) = Extract(year FROM Now())";
+    }
+
+    my $SQL_PRE = "
         SELECT IFNULL(cc.quota,0) AS Cquota,
-          IFNULL(SUM(ta.time_unit),0)
+               IFNULL(SUM(ta.time_unit),0)
         FROM customer_company cc
-          JOIN ticket t
-          ON t.customer_id = cc.customer_id
-          LEFT OUTER JOIN time_accounting ta
-          ON ta.ticket_id = t.id
-        WHERE cc.customer_id = (SELECT customer_id from ticket where id = ?)
-          AND Extract(year FROM ta.create_time) = Extract(year FROM Now())
-          AND Extract(month FROM ta.create_time) = Extract(month FROM Now())
-          AND ta.time_unit IS NOT NULL";
+            JOIN ticket t
+            ON t.customer_id = cc.customer_id
+            LEFT OUTER JOIN time_accounting ta
+            ON ta.ticket_id = t.id
+        WHERE cc.customer_id = (SELECT customer_id from ticket where id = ?)";
+    my $SQL_POST = "AND ta.time_unit IS NOT NULL";
+
+    my $SQL = "${SQL_PRE} ${SQL_TIMESELECTION} ${SQL_POST}";
+
 
     return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
