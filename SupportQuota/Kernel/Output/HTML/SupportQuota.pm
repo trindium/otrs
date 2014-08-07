@@ -80,6 +80,12 @@ sub Run {
     my $UsedQuota      = sprintf '%.1f', $Data{UsedQuota};
     my $AvailableQuota = sprintf '%.1f', $ContractQuota - $UsedQuota;
 
+    if ( $Self->{ConfigObject}->Get('SupportQuota::Preferences::EmptyContractDisplay') == '0'
+      and $ContractQuota == '0.0' ) {
+        return;
+    }
+      
+
     my $Template = q~
             <div class="WidgetSimple">
                 <div class="Header">
