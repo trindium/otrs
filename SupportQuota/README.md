@@ -9,7 +9,7 @@ easily decide what to do based on your process on how to charge (or not) for bey
 
 The screenshot bellow shows how the Support Quota works in the agent GUI:
 
-![Support Quota Add-on in action](https://raw.githubusercontent.com/denydias/otrs/master/SupportQuota/SupporQuota.png)
+![Support Quota Add-on in action](https://raw.githubusercontent.com/denydias/otrs/master/SupportQuota/SupportQuota.png)
 
 ## Instalation
 

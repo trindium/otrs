@@ -4,7 +4,7 @@
     <Version>0.0.5</Version>
     <Framework>3.3.x</Framework>
     <Vendor>Deny Dias</Vendor>
-    <URL>http://mexapi.macpress.com/</URL>
+    <URL>http://mexapi.macpress.com.br/</URL>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <ChangeLog Version="0.0.1" Date="2014-07-12 19:09:21">Initial release.</ChangeLog>
     <ChangeLog Version="0.0.2" Date="2014-07-14 00:49:21">Use Perl bind paramenters on SQL queries. Implement translations. Brazilian Portuguese and German translations.</ChangeLog>
