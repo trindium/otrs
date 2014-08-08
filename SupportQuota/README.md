@@ -59,9 +59,9 @@ After installation is done, you have to **manually** change your `Kernel/Config.
     };
 ```
 
-Optionally, you might want to check `Admin > Sysconfig > SupportQuota > SupportQuota::Preferences` and set some desired behavior.
-
 Note the new `CustomerCompanyQuota` field in the map.
+
+Optionally, you might want to check `Admin > Sysconfig > SupportQuota > SupportQuota::Preferences` and set some desired behavior.
 
 And that's it. Enjoy your extra $$$.
 
