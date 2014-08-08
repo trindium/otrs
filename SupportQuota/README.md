@@ -13,7 +13,7 @@ The screenshot bellow shows how the Support Quota works in the agent GUI:
 
 ## Instalation
 
-Right in this repo, there is an [OTRS Package](https://github.com/denydias/otrs/tree/master/packages) (SupportQuota-0.0.1.opm) ready to install. Download it, open your OTRS and go to Admin > Package Manager. Then choose the downloaded package under 'Install Package' button.
+Right in this repo, there is an [OTRS Package](https://github.com/denydias/otrs/tree/master/packages) (SupportQuota-0.0.*.opm) ready to install. Download it, open your OTRS and go to Admin > Package Manager. Then choose the downloaded package under 'Install Package' button.
 
 The package installation takes care of the only database change required. For the matter of the record, it is:
 
@@ -58,6 +58,8 @@ After installation is done, you have to **manually** change your `Kernel/Config.
         ],
     };
 ```
+
+Optionally, you might want to check `Admin > Sysconfig > SupportQuota > SupportQuota::Preferences` and set some desired behavior.
 
 Note the new `CustomerCompanyQuota` field in the map.
 
@@ -124,8 +126,8 @@ I'm not a Perl developer. I did the best I could to write this add-on with the c
 
 As an start point, I'll give you the following items as a 'To Do List':
 
-- [x] Properly implement the OTRS template mechanism. (done by [reneeb](https://github.com/reneeb) in [6c35790b23](https://github.com/denydias/otrs/commit/6c35790b230104b2124fb2b8a61f63feba4b56bf))
-- [x] Add localization support (Brazilian Portuguese is hardcoded). If you need the strings that need translation, open an issue and I'll be more than pleased to provide them. (done by [reneeb](https://github.com/reneeb) in [6c35790b23](https://github.com/denydias/otrs/commit/6c35790b230104b2124fb2b8a61f63feba4b56bf))
+- [x] Properly implement the OTRS template mechanism. (done by [@reneeb](https://github.com/reneeb) in [6c35790b23](https://github.com/denydias/otrs/commit/6c35790b230104b2124fb2b8a61f63feba4b56bf))
+- [x] Add localization support (Brazilian Portuguese is hardcoded). If you need the strings that need translation, open an issue and I'll be more than pleased to provide them. (done by [@reneeb](https://github.com/reneeb) in [6c35790b23](https://github.com/denydias/otrs/commit/6c35790b230104b2124fb2b8a61f63feba4b56bf))
 - [ ] Add the widget to AgentCustomerInformationCenter.
 - [ ] Add visual cues to over quota customers.
 - [ ] Provide notification methods to automatically reply to customers working beyond the contracted quota upon new tickets.
@@ -169,5 +171,10 @@ I'd like to acknowledge and thanks all the above list.
 ## License
 
 Copyright (C) 2001-2014 Deny Dias.
+
+With kind contributions by:
+
+* [@reneeb](https://github.com/reneeb)
+* [@lermit](https://github.com/lermit)
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see the enclosed file COPYING for license information (AGPL). If you did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
