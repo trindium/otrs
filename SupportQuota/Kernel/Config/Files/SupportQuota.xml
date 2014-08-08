@@ -16,19 +16,19 @@
         </Setting>
     </ConfigItem>
     <ConfigItem Name="SupportQuota::Preferences::Recurrence" Required="0" Valid="1">
-        <Description Translatable="1">Recurrence of quota</Description>
+        <Description Translatable="1">Quota recurrence period.</Description>
         <Group>SupportQuota</Group>
         <SubGroup>SupportQuota::Preferences</SubGroup>
         <Setting>
             <Option SelectedID="month">
                 <Item Key="month">Monthly</Item>
-                <Item Key="yead">Yearly</Item>
+                <Item Key="year">Yearly</Item>
                 <Item Key="never">Disabled</Item>
             </Option>
         </Setting>
     </ConfigItem>
     <ConfigItem Name="SupportQuota::Preferences::EmptyContractDisplay" Required="0" Valid="1">
-        <Description Translatable="1">Display the Customer Support Quota even if no quota is configured for the customer</Description>
+        <Description Translatable="1">Display Customer Support Quota widget even if no quota is set to a customer.</Description>
         <Group>SupportQuota</Group>
         <SubGroup>SupportQuota::Preferences</SubGroup>
         <Setting>
