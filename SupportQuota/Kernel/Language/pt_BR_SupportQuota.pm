@@ -20,10 +20,12 @@ sub Data {
 
     my $Lang = $Self->{Translation};
 
-    $Lang->{'Available'}              = 'Disponível';
     $Lang->{'Customer Support Quota'} = 'Cota de Suporte do Cliente';
+    $Lang->{'Available'}              = 'Disponível';
     $Lang->{'Used'}                   = 'Utilizado';
     $Lang->{'Contracted'}             = 'Contratado';
+    $Lang->{'(Monthly)'}              = '(Mensal)';
+    $Lang->{'(Yearly)'}               = '(Anual)';
 }
 
 1;

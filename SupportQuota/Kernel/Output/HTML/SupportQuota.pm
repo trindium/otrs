@@ -38,29 +38,49 @@ sub Run {
     # check data
     return if !$Self->{TicketID};
 
-    # get data: customer contracted and used quotas for the current month
+    # get data
     my %Data = ();
-    my $SQL = "
-        SELECT cc.quota          AS Cquota,
+
+    # initial sql statement with mandatory data
+    my $SQL_PRE = "
+        SELECT cc.quota AS Cquota,
                Sum(ta.time_unit) AS Uquota
-        FROM   ticket t
-               INNER JOIN customer_company cc
-                      ON cc.customer_id = t.customer_id
-               INNER JOIN time_accounting ta
+        FROM   customer_company cc
+               INNER JOIN ticket t
+                      ON t.customer_id = cc.customer_id
+               LEFT OUTER JOIN time_accounting ta
                       ON ta.ticket_id = t.id
-        WHERE  t.customer_id IN (SELECT customer_id
-                                FROM   ticket
-                                WHERE  id = ?)
-               AND ta.time_unit IS NOT NULL
-               AND Extract(year FROM t.create_time) = Extract(year FROM Now())
-               AND Extract(month FROM t.create_time) = Extract(month FROM Now())
-        GROUP  BY t.customer_id";
+        WHERE  cc.customer_id = (SELECT customer_id
+                                FROM    ticket
+                                WHERE   id = ?)
+               AND ta.time_unit IS NOT NULL";
+
+    # additional sql statement matching for the recurrence period
+    my $Recurrence = $Self->{ConfigObject}->Get('SupportQuota::Preferences::Recurrence');
+    my $RecurrenceLabel = "";
+    my $SQL_RECURRENCE = "";
+    if ( $Recurrence eq 'month' ) {
+        $RecurrenceLabel = "(Monthly)";
+        $SQL_RECURRENCE = "
+               AND Extract(year FROM ta.create_time) = Extract(year FROM Now())
+               AND Extract(month FROM ta.create_time) = Extract(month FROM Now())";
+    } elsif ( $Recurrence eq 'year' ) {
+        $RecurrenceLabel = "(Yearly)";
+        $SQL_RECURRENCE = "
+               AND Extract(year FROM ta.create_time) = Extract(year FROM Now())";
+    } else {
+        $RecurrenceLabel = "";
+    }
+
+    # compose final sql statement
+    my $SQL = "${SQL_PRE} ${SQL_RECURRENCE}";
+
     return if !$Self->{DBObject}->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Self->{TicketID} ],
         Limit => 1,
     );
-    while (my @Row = $Self->{DBObject}->FetchrowArray()) {
+    while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
         $Data{ContractQuota} = $Row[0];
         $Data{UsedQuota}     = $Row[1];
     }
@@ -70,10 +90,17 @@ sub Run {
     my $UsedQuota      = sprintf '%.1f', $Data{UsedQuota};
     my $AvailableQuota = sprintf '%.1f', $ContractQuota - $UsedQuota;
 
+    # exit if no quota is configured for the customer and this is not desired in config
+    if (
+        $ContractQuota == '0'
+        && $Self->{ConfigObject}->Get('SupportQuota::Preferences::EmptyContractDisplay') == '0'
+        )
+        { return; }
+
     my $Template = q~
             <div class="WidgetSimple">
                 <div class="Header">
-                    <h2>$Text{"Customer Support Quota"}</h2>
+                    <h2>$Text{"Customer Support Quota"} $Text{"$Data{"Recurrence"}"}</h2>
                 </div>
                 <div class="Content">
                     <fieldset class="TableLike FixedLabelSmall Narrow">
@@ -97,6 +124,7 @@ sub Run {
             Available  => $AvailableQuota,
             Used       => $UsedQuota,
             Contracted => $ContractQuota,
+            Recurrence => $RecurrenceLabel
         },
     );
 
