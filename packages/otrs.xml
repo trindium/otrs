@@ -13,6 +13,7 @@
     <ChangeLog Date="2014-08-08 10:11:00" Version="0.0.5">Fix display when no time accounting and add ability to configure recurrence.</ChangeLog>
     <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in the agent interface.</Description>
     <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas na interface do agente.</Description>
+    <Description Lang="fr">Ajoute la possibilité de gérer des crédits temps de support par client et d'afficher ces informations dans l'interface des agents.</Description>
     <Framework>3.3.x</Framework>
     <Filelist>
     </Filelist>
