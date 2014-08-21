@@ -15,12 +15,14 @@
     <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas na interface do agente.</Description>
     <IntroInstall Type="post" Lang="en" Title="Thank you!">Don't forget to edit your Kernel/Config.pm to add the 'Quota' field to 'AdminCustomerCompany'. See the module README.md for a Kernel/Config.pm example. Thank you for install the Support Quota module.</IntroInstall>
     <IntroInstall Type="post" Lang="pt_BR" Title="Obrigado!">Não deixe de alterar o seu Kernel/Config.pm para incluir o campo 'Cota' em 'AdminCustomerCompany'. Veja o README.md do módulo para um exemplo. Obrigado por instalar o módulo Cota de Suporte.</IntroInstall>
+    <IntroInstall Type="post" Lang="en" Title="Thank you!">N'oubliez pas d'éditer le fichier Kernel/Config.pm pour ajouter la colonne 'Quota' dans la table 'AdminCustomerCompany'. Reportez vous au fichier README.md pour un exemple. Merci d'avoir installé le module "Support Quota".</IntroInstall>
     <BuildDate>?</BuildDate>
     <BuildHost>?</BuildHost>
     <Filelist>
         <File Permission="644" Location="Kernel/Config/Files/SupportQuota.xml"></File>
         <File Permission="644" Location="Kernel/Language/de_SupportQuota.pm"></File>
         <File Permission="644" Location="Kernel/Language/pt_BR_SupportQuota.pm"></File>
+        <File Permission="644" Location="Kernel/Language/fr_SupportQuota.pm"></File>
         <File Permission="644" Location="Kernel/Output/HTML/SupportQuota.pm"></File>
     </Filelist>
     <DatabaseInstall Type="pre">

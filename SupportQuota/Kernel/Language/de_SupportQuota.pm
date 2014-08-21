@@ -24,6 +24,8 @@ sub Data {
     $Lang->{'Customer Support Quota'} = 'Quota Kundensupport';
     $Lang->{'Used'}                   = 'Verbraucht';
     $Lang->{'Contracted'}             = 'Vertrag';
+    $Lang->{'(Monthly)'}              = '(Monatlich)';
+    $Lang->{'(Yearly)'}               = '(Jährlich)';
 }
 
 1;
