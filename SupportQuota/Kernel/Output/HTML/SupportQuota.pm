@@ -12,6 +12,13 @@ package Kernel::Output::HTML::SupportQuota;
 use strict;
 use warnings;
 
+our @ObjectDependencies = qw(
+    Kernel::Config
+    Kernel::System::DB
+    Kernel::Output::HTML::Layout
+    Kernel::System::Web::Request
+);
+
 sub new {
     my ( $Type, %Param ) = @_;
 
@@ -19,23 +26,19 @@ sub new {
     my $Self = {%Param};
     bless( $Self, $Type );
 
-    # get needed objects
-    for my $Needed (
-        qw(ConfigObject DBObject LayoutObject)
-        )
-    {
-        if ( !$Self->{$Needed} ) {
-            $Self->{LayoutObject}->FatalError( Message => "Got no $Needed!" );
-        }
-    }
-
     return $Self;
 }
 
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    # check data
+    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+    my $DBObject     = $Kernel::OM->Get('Kernel::System::DB');
+    my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
+    my $ParamObject  = $Kernel::OM->Get('Kernel::System::Web::Request');
+
+    $Self->{TicketID} = $ParamObject->GetParam( Param => 'TicketID' );
+
     return if !$Self->{TicketID};
 
     # get data
@@ -56,7 +59,7 @@ sub Run {
                AND ta.time_unit IS NOT NULL";
 
     # additional sql statement matching for the recurrence period
-    my $Recurrence = $Self->{ConfigObject}->Get('SupportQuota::Preferences::Recurrence');
+    my $Recurrence = $ConfigObject->Get('SupportQuota::Preferences::Recurrence');
     my $RecurrenceLabel = "";
     my $SQL_RECURRENCE = "";
     if ( $Recurrence eq 'month' ) {
@@ -75,12 +78,12 @@ sub Run {
     # compose final sql statement
     my $SQL = "${SQL_PRE} ${SQL_RECURRENCE}";
 
-    return if !$Self->{DBObject}->Prepare(
+    return if !$DBObject->Prepare(
         SQL   => $SQL,
         Bind  => [ \$Self->{TicketID} ],
         Limit => 1,
     );
-    while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
+    while ( my @Row = $DBObject->FetchrowArray() ) {
         $Data{ContractQuota} = $Row[0];
         $Data{UsedQuota}     = $Row[1];
     }
@@ -100,25 +103,25 @@ sub Run {
     my $Template = q~
             <div class="WidgetSimple">
                 <div class="Header">
-                    <h2>$Text{"Customer Support Quota"} $Text{"$Data{"Recurrence"}"}</h2>
+                    <h2>[% Translate("Customer Support Quota") | html %] [% Translate(Data.Recurrence) | html %]</h2>
                 </div>
                 <div class="Content">
                     <fieldset class="TableLike FixedLabelSmall Narrow">
-                        <label>$Text{"Available"}:</label>
-                        <p class="Value">$QData{"Available"}</p>
+                        <label>[% Translate("Available") | html %]:</label>
+                        <p class="Value">[% Data.Available | html %]</p>
                         <div class="Clear"></div>
-                        <label>$Text{"Used"}:</label>
-                        <p class="Value">$QData{"Used"}</p>
+                        <label>[% Translate("Used") | html %]:</label>
+                        <p class="Value">[% Data.Used | html %]</p>
                         <div class="Clear"></div>
-                        <label>$Text{"Contracted"}:</label>
-                        <p class="Value">$QData{"Contracted"}</p>
+                        <label>[% Translate("Contracted") | html %]:</label>
+                        <p class="Value">[% Data.Contracted | html %]</p>
                         <div class="Clear"></div>
                     </fieldset>
                 </div>
             </div>
     ~;
 
-    my $HTML = $Self->{LayoutObject}->Output(
+    my $HTML = $LayoutObject->Output(
         Template => $Template,
         Data     => {
             Available  => $AvailableQuota,
@@ -129,7 +132,7 @@ sub Run {
     );
 
     # add information
-    ${ $Param{Data} } =~ s{ (<\!--\sdtl:block:CustomerTable\s-->) }{ $HTML $1 }ixms;
+    ${ $Param{Data} } =~ s{ (\[\% \s+ RenderBlockStart\("CustomerTable"\) \s+ \%\]) }{ $HTML $1 }ixms;
 
     return $Param{Data};
 }
