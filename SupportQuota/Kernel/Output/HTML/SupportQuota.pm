@@ -103,7 +103,7 @@ sub Run {
     my $Template = q~
             <div class="WidgetSimple">
                 <div class="Header">
-                    <h2>[% Translate("Customer Support Quota") | html %][% Translate(Data.Recurrence) | html %]</h2>
+                    <h2>[% Translate("Customer Support Quota") | html %] [% Translate(Data.Recurrence) | html %]</h2>
                 </div>
                 <div class="Content">
                     <fieldset class="TableLike FixedLabelSmall Narrow">
