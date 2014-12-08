@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otrs_package version="1.0">
     <Name>SupportQuota</Name>
-    <Version>0.0.6</Version>
-    <Framework>3.3.x</Framework>
+    <Version>4.0.1</Version>
+    <Framework>4.0.x</Framework>
     <Vendor>Deny Dias</Vendor>
     <URL>http://mexapi.macpress.com.br/foss.html</URL>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
