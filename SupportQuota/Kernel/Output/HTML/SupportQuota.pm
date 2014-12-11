@@ -96,7 +96,7 @@ sub Run {
     # exit if no quota is configured for the customer and this is not desired in config
     if (
         $ContractQuota == '0'
-        && $Self->{ConfigObject}->Get('SupportQuota::Preferences::EmptyContractDisplay') == '0'
+        && $ConfigObject->Get('SupportQuota::Preferences::EmptyContractDisplay') == '0'
         )
         { return; }
 
