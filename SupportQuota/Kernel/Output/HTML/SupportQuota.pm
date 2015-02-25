@@ -84,21 +84,30 @@ sub Run {
         Limit => 1,
     );
     while ( my @Row = $DBObject->FetchrowArray() ) {
-        $Data{ContractQuota} = $Row[0];
-        $Data{UsedQuota}     = $Row[1];
+        # initialize undefined data sources
+        if ( defined $Row[0] ) {
+            $Data{ContractQuota} = $Row[0];
+        } else {
+            $Data{ContractQuota} = 0;
+        }
+        if ( defined $Row[1] ) {
+            $Data{UsedQuota}     = $Row[1];
+        } else {
+            $Data{UsedQuota}     = 0;
+        }
     }
 
     # format and calculate remaining data
     my $ContractQuota  = sprintf '%.1f', $Data{ContractQuota};
     my $UsedQuota      = sprintf '%.1f', $Data{UsedQuota};
-    my $AvailableQuota = sprintf '%.1f', $ContractQuota - $UsedQuota;
+    my $AvailableQuota = sprintf '%.1f', $Data{ContractQuota} - $Data{UsedQuota};
 
     # exit if no quota is configured for the customer and this is not desired in config
     if (
-        $ContractQuota == '0'
-        && $ConfigObject->Get('SupportQuota::Preferences::EmptyContractDisplay') == '0'
-        )
-        { return; }
+        $ContractQuota == 0
+        && $ConfigObject->Get('SupportQuota::Preferences::EmptyContractDisplay') == 0
+    )
+    { return; }
 
     my $Template = q~
             <div class="WidgetSimple">

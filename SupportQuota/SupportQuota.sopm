@@ -14,6 +14,7 @@
     <ChangeLog Version="0.0.6" Date="2014-08-21 04:25:50">Add French and update Deutsch translations.</ChangeLog>
     <ChangeLog Version="1.0.0" Date="2014-12-08 05:44:50">Update to Framework v4.0. For Framework v3.3 support, get SupportQuota v0.0.6.</ChangeLog>
     <ChangeLog Version="1.0.1" Date="2014-12-11 07:36:10">Fix an issue for customers with no quota.</ChangeLog>
+    <ChangeLog Version="1.0.2" Date="2015-02-25 09:03:53">Sanitize undefined quotas to avoid log errors.</ChangeLog>
     <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in the agent interface.</Description>
     <Description Lang="fr">Ajoute la possibilité de gérer des crédits temps de support par client et d'afficher ces informations dans l'interface des agents.</Description>
     <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas na interface do agente.</Description>
