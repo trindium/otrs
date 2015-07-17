@@ -56,7 +56,8 @@ sub Run {
         WHERE  cc.customer_id = (SELECT customer_id
                                 FROM    ticket
                                 WHERE   id = ?)
-               AND ta.time_unit IS NOT NULL";
+               AND ta.time_unit IS NOT NULL
+        GROUP BY cc.customer_id";
 
     # additional sql statement matching for the recurrence period
     my $Recurrence = $ConfigObject->Get('SupportQuota::Preferences::Recurrence');
