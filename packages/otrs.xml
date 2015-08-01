@@ -2,7 +2,7 @@
 <otrs_package_list version="1.0">
 <Package>
     <Name>SupportQuota</Name>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Vendor>Deny Dias</Vendor>
     <URL>http://mexapi.macpress.com.br/foss.html</URL>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
@@ -15,12 +15,13 @@
     <ChangeLog Date="2014-12-08 05:44:50" Version="1.0.0">Update to Framework v4.0. For Framework v3.3 support, get SupportQuota v0.0.6.</ChangeLog>
     <ChangeLog Date="2014-12-11 07:36:10" Version="1.0.1">Fix an issue for customers with no quota.</ChangeLog>
     <ChangeLog Date="2015-02-25 09:03:53" Version="1.0.2">Sanitize undefined quotas to avoid log errors.</ChangeLog>
+    <ChangeLog Date="2015-07-31 23:04:39" Version="1.0.3">Fix a PostgreSQL error condition.</ChangeLog>
     <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in the agent interface.</Description>
     <Description Lang="fr">Ajoute la possibilité de gérer des crédits temps de support par client et d'afficher ces informations dans l'interface des agents.</Description>
     <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas na interface do agente.</Description>
     <Framework>4.0.x</Framework>
     <Filelist>
     </Filelist>
-  <File>/SupportQuota-1.0.2.opm</File>
+  <File>/SupportQuota-1.0.3.opm</File>
 </Package>
 </otrs_package_list>
