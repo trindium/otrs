@@ -37,7 +37,7 @@ sudo tail -f /var/log/apache2/error.log
 
 ```
 /opt/otrs/bin/otrs.PackageManager.pl -a build -p /opt/otrs/dev/SupportQuota/SupportQuota.sopm
-mv /tmp/SupportQuota-0.0.?.opm (NEW) /opt/otrs/dev/packages/
-rm /opt/otrs/dev/packages/SupportQuota-0.0.?.opm (OLD)
+rm /opt/otrs/dev/packages/SupportQuota-0.0.*.opm
+mv /tmp/SupportQuota-0.0.*.opm /opt/otrs/dev/packages/
 /opt/otrs/bin/otrs.PackageManager.pl -a index -d /opt/otrs/dev/packages > /opt/otrs/dev/packages/otrs.xml
 ```
