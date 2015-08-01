@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <otrs_package version="1.0">
     <Name>SupportQuota</Name>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Framework>4.0.x</Framework>
     <Vendor>Deny Dias</Vendor>
     <URL>http://mexapi.macpress.com.br/foss.html</URL>
@@ -15,14 +15,15 @@
     <ChangeLog Version="1.0.0" Date="2014-12-08 05:44:50">Update to Framework v4.0. For Framework v3.3 support, get SupportQuota v0.0.6.</ChangeLog>
     <ChangeLog Version="1.0.1" Date="2014-12-11 07:36:10">Fix an issue for customers with no quota.</ChangeLog>
     <ChangeLog Version="1.0.2" Date="2015-02-25 09:03:53">Sanitize undefined quotas to avoid log errors.</ChangeLog>
+    <ChangeLog Version="1.0.3" Date="2015-07-31 23:04:39">Fix a PostgreSQL error condition.</ChangeLog>
     <Description Lang="en">Add support to work unit quotas by customer company and displays the quotas in the agent interface.</Description>
     <Description Lang="fr">Ajoute la possibilité de gérer des crédits temps de support par client et d'afficher ces informations dans l'interface des agents.</Description>
     <Description Lang="pt_BR">Adiciona suporte a cotas de unidades de trabalho por empresa cliente e mostra as cotas na interface do agente.</Description>
     <IntroInstall Type="post" Lang="en" Title="Thank you!">Don't forget to edit your Kernel/Config.pm to add the 'Quota' field to 'AdminCustomerCompany'. See the module README.md for a Kernel/Config.pm example. Thank you for install the Support Quota module.</IntroInstall>
     <IntroInstall Type="post" Lang="fr" Title="Merci!">N'oubliez pas d'éditer le fichier Kernel/Config.pm pour ajouter la colonne 'Quota' dans la table 'AdminCustomerCompany'. Reportez vous au fichier README.md pour un exemple. Merci d'avoir installé le module "Support Quota".</IntroInstall>
     <IntroInstall Type="post" Lang="pt_BR" Title="Obrigado!">Não deixe de alterar o seu Kernel/Config.pm para incluir o campo 'Cota' em 'AdminCustomerCompany'. Veja o README.md do módulo para um exemplo. Obrigado por instalar o módulo Cota de Suporte.</IntroInstall>
-    <BuildDate>?</BuildDate>
-    <BuildHost>?</BuildHost>
+    <BuildDate>2015-07-31 23:04:39</BuildDate>
+    <BuildHost>devlab</BuildHost>
     <Filelist>
         <File Permission="644" Location="Kernel/Config/Files/SupportQuota.xml"></File>
         <File Permission="644" Location="Kernel/Language/de_SupportQuota.pm"></File>
