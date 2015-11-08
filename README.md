@@ -27,7 +27,10 @@ Then run `AdminSysConfig` in the browser.
 ### Module Debug
 
 ```
-/opt/otrs/bin/otrs.RebuildConfig.pl;/opt/otrs/bin/otrs.DeleteCache.pl
+(As otrs user)
+bin/otrs.Console.pl Maint::Config::Rebuild
+bin/otrs.Console.pl Maint::Cache::Delete
+(As Root)
 sudo perl /opt/otrs/bin/otrs.SetPermissions.pl --otrs-user=otrs --web-group=www-data /opt/otrs
 sudo service apache2 restart
 sudo tail -f /var/log/apache2/error.log
